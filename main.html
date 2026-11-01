@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Học Ngữ Pháp TOPIK II - 50 Ngữ Pháp & 39 Đồng Nghĩa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        kr: ['"Noto Sans KR"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            overscroll-behavior-y: contain;
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .font-kr {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom, 0.5rem);
+        }
+        u {
+            text-decoration: none;
+            background-color: #fef3c7;
+            color: #b45309;
+            font-weight: 800;
+            padding: 1px 6px;
+            border-radius: 5px;
+            border-bottom: 2px solid #f59e0b;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-28 bg-slate-50 text-slate-900 flex flex-col overflow-x-hidden">
+
+    <!-- TOP STICKY NAVIGATION BAR (Clean White Header) -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-200 shadow-xs">
+        <div class="max-w-3xl mx-auto px-3 pt-2.5 pb-2 space-y-2">
+            <!-- Header Row -->
+            <div class="flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2 min-w-0">
+                    <div class="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center text-base font-black font-kr text-white shadow-xs shrink-0">
+                        한
+                    </div>
+                    <div class="truncate">
+                        <h1 class="text-xs sm:text-sm font-extrabold tracking-tight text-slate-900 flex items-center gap-1.5">
+                            <span>Học Ngữ Pháp TOPIK II</span>
+                            <span class="text-[10px] bg-indigo-100 text-indigo-700 font-black px-1.5 py-0.5 rounded-full">89 Mục</span>
+                        </h1>
+                        <p class="text-[10px] text-slate-500 truncate">50 Ngữ pháp &bull; 39 Nhóm đồng nghĩa</p>
+                    </div>
+                </div>
+
+                <!-- Progress & Reset -->
+                <div class="flex items-center gap-1.5 shrink-0">
+                    <div class="bg-slate-100 rounded-xl px-2.5 py-1 border border-slate-200 w-32 sm:w-36">
+                        <div class="flex justify-between text-[9px] font-bold mb-0.5">
+                            <span class="text-amber-600"><i class="fa-solid fa-star mr-0.5"></i>Đã thuộc</span>
+                            <span id="progress-text" class="text-slate-700">0/89 (0%)</span>
+                        </div>
+                        <div class="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                            <div id="progress-bar" class="h-full bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <button onclick="openResetModal()" title="Đặt lại tiến độ" class="w-8 h-8 rounded-xl bg-slate-100 active:bg-slate-200 border border-slate-200 flex items-center justify-center text-slate-600 text-xs transition">
+                        <i class="fa-solid fa-rotate-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Top 4-Tab Bar (Mirrors Bottom Navigation) -->
+            <div class="grid grid-cols-4 gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
+                <button onclick="switchTab('grammar')" id="topnav-grammar" class="py-1.5 px-1 rounded-lg text-[11px] font-extrabold transition bg-indigo-600 text-white shadow-xs flex items-center justify-center gap-1 truncate">
+                    <span>50 Ngữ pháp</span>
+                    <span class="text-[9px] bg-white/25 px-1 rounded">50</span>
+                </button>
+                <button onclick="switchTab('synonyms')" id="topnav-synonyms" class="py-1.5 px-1 rounded-lg text-[11px] font-bold transition text-slate-600 hover:bg-white flex items-center justify-center gap-1 truncate">
+                    <span>39 Đồng nghĩa</span>
+                    <span class="text-[9px] bg-violet-100 text-violet-700 px-1 rounded">39</span>
+                </button>
+                <button onclick="switchTab('flashcards')" id="topnav-flashcards" class="py-1.5 px-1 rounded-lg text-[11px] font-bold transition text-slate-600 hover:bg-white flex items-center justify-center gap-1 truncate">
+                    <i class="fa-solid fa-clone text-[10px]"></i>
+                    <span>Flashcard</span>
+                </button>
+                <button onclick="switchTab('quiz')" id="topnav-quiz" class="py-1.5 px-1 rounded-lg text-[11px] font-bold transition text-slate-600 hover:bg-white flex items-center justify-center gap-1 truncate">
+                    <i class="fa-solid fa-bolt text-[10px]"></i>
+                    <span>Luyện tập</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-3xl w-full mx-auto px-3 sm:px-4 pt-3 pb-8 flex-1 space-y-4">
+
+        <!-- ==================== TAB 1: 50 NGỮ PHÁP ==================== -->
+        <section id="view-grammar" class="space-y-3.5">
+            <!-- Collapsible Book Sample Question (Page 1) -->
+            <div class="bg-amber-50/90 border border-amber-300 rounded-2xl p-3.5 shadow-xs">
+                <button onclick="toggleSampleBanner()" class="w-full flex items-center justify-between text-left gap-2">
+                    <div class="flex items-center gap-2">
+                        <span class="w-6 h-6 rounded-lg bg-amber-500 text-white flex items-center justify-center text-xs font-bold">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </span>
+                        <span class="text-xs font-extrabold uppercase tracking-wider text-amber-900">
+                            Ví dụ mẫu trang 1 trong sách (Bấm để mở)
+                        </span>
+                    </div>
+                    <i id="banner-chevron" class="fa-solid fa-chevron-down text-xs text-amber-800 transition-transform"></i>
+                </button>
+
+                <div id="sample-banner-body" class="hidden mt-3 pt-3 border-t border-amber-200 space-y-2.5">
+                    <p class="text-xs text-slate-600">( &nbsp;&nbsp; )에 들어간 가장 알맞은 것을 고르십시오.</p>
+                    <p class="font-kr text-sm sm:text-base font-bold text-slate-900 bg-white p-3 rounded-xl border border-amber-200">
+                        미뤄 두었던 숙제를 ( &nbsp;&nbsp; ___ &nbsp;&nbsp; ) 이번 주에 정신없이 바빴다.
+                    </p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button onclick="checkBannerOption(1)" class="banner-opt py-2 px-3 rounded-xl bg-white border border-slate-200 active:bg-slate-100 font-kr text-xs sm:text-sm font-semibold text-left text-slate-800 transition">① 하더니</button>
+                        <button onclick="checkBannerOption(2)" class="banner-opt py-2 px-3 rounded-xl bg-white border border-slate-200 active:bg-slate-100 font-kr text-xs sm:text-sm font-semibold text-left text-slate-800 transition">② 하려면</button>
+                        <button onclick="checkBannerOption(3)" class="banner-opt py-2 px-3 rounded-xl bg-white border border-slate-200 active:bg-slate-100 font-kr text-xs sm:text-sm font-semibold text-left text-slate-800 transition">③ 하도록</button>
+                        <button onclick="checkBannerOption(4)" class="banner-opt py-2 px-3 rounded-xl bg-white border border-slate-200 active:bg-slate-100 font-kr text-xs sm:text-sm font-semibold text-left text-slate-800 transition">④ 하느라고</button>
+                    </div>
+                    <div id="banner-answer-box" class="hidden text-xs text-emerald-900 bg-emerald-100 border border-emerald-300 rounded-xl p-3 leading-relaxed">
+                        <strong>Đáp án đúng: ④ 하느라고</strong> (-느라고: do mải mê làm gì ... nên không thể).<br>
+                        <em>Dịch: Do mải mê làm bài tập đã trì hoãn nên tuần này tôi bận tối mắt tối mũi.</em>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search & Filters for 50 Grammars -->
+            <div class="bg-white rounded-2xl p-3 border border-slate-200 shadow-xs space-y-2.5">
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" id="grammar-search" oninput="renderGrammarList()" placeholder="Tìm trong 50 ngữ pháp (vd: 자마자, 느라고, giả vờ)..." class="w-full pl-9 pr-9 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white">
+                    <button onclick="clearGrammarSearch()" id="clear-grammar-search" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 p-1">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                </div>
+                <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-0.5">
+                    <button onclick="setGrammarFilter('all')" data-gfilter="all" class="gfilter-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition bg-indigo-600 text-white shadow-xs">Tất cả (50)</button>
+                    <button onclick="setGrammarFilter('2.1')" data-gfilter="2.1" class="gfilter-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition bg-slate-100 text-slate-700 border border-slate-200">2.1 Liên kết (30)</button>
+                    <button onclick="setGrammarFilter('2.2')" data-gfilter="2.2" class="gfilter-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition bg-slate-100 text-slate-700 border border-slate-200">2.2 Kết thúc (20)</button>
+                    <button onclick="setGrammarFilter('unmastered')" data-gfilter="unmastered" class="gfilter-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition bg-slate-100 text-slate-700 border border-slate-200">Chưa thuộc</button>
+                    <button onclick="setGrammarFilter('mastered')" data-gfilter="mastered" class="gfilter-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition bg-slate-100 text-slate-700 border border-slate-200">Đã thuộc</button>
+                </div>
+            </div>
+
+            <!-- Grammar List -->
+            <div id="grammar-list-container" class="space-y-3"></div>
+        </section>
+
+        <!-- ==================== TAB 2: 39 ĐỒNG NGHĨA ==================== -->
+        <section id="view-synonyms" class="hidden space-y-3.5">
+            <!-- Banner -->
+            <div class="bg-gradient-to-r from-indigo-600 to-violet-600 rounded-2xl p-4 shadow-sm flex items-center justify-between gap-3">
+                <div>
+                    <span class="text-[10px] font-black uppercase tracking-wider bg-amber-300 text-slate-950 px-2 py-0.5 rounded-full">Trọng tâm Câu 3-4 TOPIK II</span>
+                    <h2 class="text-base sm:text-lg font-extrabold text-white mt-1">39 Nhóm Ngữ Pháp Đồng Nghĩa</h2>
+                    <p class="text-xs text-indigo-100 mt-0.5">Chạm vào từng cấu trúc hoặc câu ví dụ để nghe phát âm tiếng Hàn.</p>
+                </div>
+                <div class="w-11 h-11 rounded-2xl bg-white/20 flex items-center justify-center text-xl text-white shrink-0">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+            </div>
+
+            <!-- Search & Filters for 39 Synonyms -->
+            <div class="bg-white rounded-2xl p-3 border border-slate-200 shadow-xs space-y-2.5">
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" id="syn-search" oninput="renderSynonymList()" placeholder="Tìm trong 39 nhóm đồng nghĩa (vd: phỏng đoán, 커녕, 셈이다)..." class="w-full pl-9 pr-9 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:bg-white">
+                    <button onclick="clearSynSearch()" id="clear-syn-search" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 p-1">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                </div>
+                <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-0.5">
+                    <button onclick="setSynFilter('all')" data-sfilter="all" class="sfilter-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition bg-violet-600 text-white shadow-xs">Tất cả (39)</button>
+                    <button onclick="setSynFilter('unmastered')" data-sfilter="unmastered" class="sfilter-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition bg-slate-100 text-slate-700 border border-slate-200">Chưa thuộc</button>
+                    <button onclick="setSynFilter('mastered')" data-sfilter="mastered" class="sfilter-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition bg-slate-100 text-slate-700 border border-slate-200">Đã thuộc</button>
+                </div>
+            </div>
+
+            <!-- 39 Synonym Cards Container -->
+            <div id="synonym-list-container" class="space-y-3.5"></div>
+        </section>
+
+        <!-- ==================== TAB 3: FLASHCARD 3D ==================== -->
+        <section id="view-flashcards" class="hidden space-y-4">
+            <div class="bg-white rounded-2xl p-3 border border-slate-200 shadow-xs space-y-2.5">
+                <div class="grid grid-cols-2 gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200">
+                    <button onclick="setFlashcardDeckType('grammar')" id="fc-type-grammar" class="py-2 px-3 rounded-lg text-xs font-extrabold transition bg-indigo-600 text-white shadow-xs">
+                        50 Ngữ Pháp
+                    </button>
+                    <button onclick="setFlashcardDeckType('synonyms')" id="fc-type-synonyms" class="py-2 px-3 rounded-lg text-xs font-extrabold transition text-slate-600">
+                        39 Đồng Nghĩa
+                    </button>
+                </div>
+
+                <div class="flex items-center justify-between gap-2">
+                    <select id="fc-filter-select" onchange="initFlashcards()" class="flex-1 bg-slate-50 border border-slate-200 text-slate-800 text-xs font-bold rounded-xl px-3 py-2.5 focus:outline-none">
+                        <option value="all">Tất cả thẻ</option>
+                        <option value="unmastered">Chỉ thẻ Chưa thuộc</option>
+                        <option value="mastered">Chỉ thẻ Đã thuộc</option>
+                    </select>
+                    <button onclick="shuffleFlashcards()" class="px-3.5 py-2.5 rounded-xl bg-slate-100 active:bg-slate-200 border border-slate-200 text-indigo-700 font-bold text-xs flex items-center gap-1.5 shrink-0">
+                        <i class="fa-solid fa-shuffle"></i> Trộn
+                    </button>
+                    <span id="fc-counter" class="text-xs font-extrabold text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-2.5 rounded-xl shrink-0">1/50</span>
+                </div>
+            </div>
+
+            <div id="fc-empty-state" class="hidden bg-white rounded-3xl p-8 text-center border border-slate-200 shadow-xs">
+                <div class="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto text-2xl mb-3">
+                    <i class="fa-solid fa-check-double"></i>
+                </div>
+                <h3 class="text-base font-extrabold text-slate-900">Không có thẻ nào trong bộ lọc này!</h3>
+                <p class="text-xs text-slate-500 mt-1">Hãy chuyển bộ lọc sang "Tất cả thẻ" để tiếp tục ôn tập.</p>
+            </div>
+
+            <!-- 3D Card Stage -->
+            <div id="fc-stage" class="space-y-4">
+                <div id="fc-touch-area" onclick="flipFlashcard()" class="perspective-1000 w-full h-[360px] sm:h-[390px] cursor-pointer select-none">
+                    <div id="fc-card-inner" class="transform-style-3d relative w-full h-full rounded-3xl shadow-md">
+                        <!-- Front (Crisp White Card) -->
+                        <div class="backface-hidden absolute inset-0 bg-white rounded-3xl border-2 border-indigo-100 p-5 sm:p-6 flex flex-col justify-between">
+                            <div class="flex items-center justify-between gap-2">
+                                <span id="fc-front-badge" class="text-[11px] font-extrabold px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">Mục #1</span>
+                                <div class="flex items-center gap-1.5">
+                                    <span id="fc-mastered-pill" class="hidden text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200">
+                                        <i class="fa-solid fa-check mr-1"></i>Đã thuộc
+                                    </span>
+                                    <button onclick="event.stopPropagation(); speakCurrentFlashcard()" class="w-10 h-10 rounded-full bg-indigo-50 active:bg-indigo-100 border border-indigo-200 text-indigo-600 flex items-center justify-center">
+                                        <i class="fa-solid fa-volume-high"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="my-auto text-center space-y-3 overflow-y-auto no-scrollbar py-2">
+                                <p id="fc-front-sub" class="text-[11px] uppercase tracking-widest text-slate-400 font-bold">Chạm để lật xem nghĩa & ví dụ</p>
+                                <div id="fc-front-main" class="font-kr text-2xl sm:text-3xl font-black text-slate-900 leading-snug"></div>
+                            </div>
+
+                            <div class="text-center text-[11px] text-slate-400">
+                                <i class="fa-solid fa-hand-pointer text-indigo-500 mr-1"></i>Chạm để lật &bull; Vuốt trái/phải để đổi thẻ
+                            </div>
+                        </div>
+
+                        <!-- Back (Soft Indigo Tinted Light Card) -->
+                        <div class="backface-hidden rotate-y-180 absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-violet-50 rounded-3xl border-2 border-indigo-300 p-5 sm:p-6 flex flex-col justify-between">
+                            <div class="flex items-center justify-between gap-2">
+                                <span id="fc-back-title" class="text-xs font-extrabold text-indigo-700 truncate">Nghĩa & Ví dụ</span>
+                                <button onclick="event.stopPropagation(); speakCurrentFlashcardExample()" class="px-3 py-1.5 rounded-full bg-indigo-600 active:bg-indigo-700 text-white text-xs font-bold flex items-center gap-1.5 shrink-0 shadow-xs">
+                                    <i class="fa-solid fa-volume-high"></i> Nghe câu mẫu
+                                </button>
+                            </div>
+
+                            <div class="my-auto space-y-3 overflow-y-auto no-scrollbar py-1">
+                                <div class="text-center">
+                                    <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Nghĩa tiếng Việt</p>
+                                    <h3 id="fc-back-meaning" class="text-xl sm:text-2xl font-extrabold text-indigo-700 mt-0.5"></h3>
+                                </div>
+                                <div id="fc-back-examples" class="bg-white rounded-2xl p-3.5 border border-indigo-100 shadow-2xs space-y-2 text-xs sm:text-sm"></div>
+                            </div>
+
+                            <div class="text-center text-[11px] text-slate-500">Chạm vào thẻ để lật lại</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="grid grid-cols-4 gap-2">
+                    <button onclick="prevFlashcard()" class="py-3.5 rounded-2xl bg-white border border-slate-200 active:bg-slate-100 text-slate-700 font-extrabold text-xs flex flex-col items-center justify-center gap-1 shadow-2xs">
+                        <i class="fa-solid fa-arrow-left text-sm"></i><span>Trước</span>
+                    </button>
+                    <button onclick="flipFlashcard()" class="py-3.5 rounded-2xl bg-indigo-50 border border-indigo-200 active:bg-indigo-100 text-indigo-700 font-extrabold text-xs flex flex-col items-center justify-center gap-1">
+                        <i class="fa-solid fa-rotate text-sm"></i><span>Lật thẻ</span>
+                    </button>
+                    <button onclick="toggleCurrentFlashcardMastery()" id="fc-master-btn" class="py-3.5 rounded-2xl bg-emerald-600 text-white font-extrabold text-xs flex flex-col items-center justify-center gap-1 shadow-xs">
+                        <i class="fa-solid fa-check text-sm"></i><span>Đã thuộc</span>
+                    </button>
+                    <button onclick="nextFlashcard()" class="py-3.5 rounded-2xl bg-white border border-slate-200 active:bg-slate-100 text-slate-700 font-extrabold text-xs flex flex-col items-center justify-center gap-1 shadow-2xs">
+                        <i class="fa-solid fa-arrow-right text-sm"></i><span>Tiếp</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== TAB 4: TRẮC NGHIỆM ==================== -->
+        <section id="view-quiz" class="hidden space-y-4">
+            <div class="bg-white rounded-2xl p-3.5 border border-slate-200 shadow-xs space-y-3">
+                <div class="grid grid-cols-2 gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200">
+                    <button onclick="setQuizMode('synonyms')" id="qmode-synonyms" class="py-2 px-2 rounded-lg text-xs font-extrabold transition bg-violet-600 text-white shadow-xs">
+                        Tìm câu Đồng nghĩa (Câu 3-4)
+                    </button>
+                    <button onclick="setQuizMode('grammar')" id="qmode-grammar" class="py-2 px-2 rounded-lg text-xs font-extrabold transition text-slate-600">
+                        Trắc nghiệm 50 Ngữ pháp
+                    </button>
+                </div>
+
+                <div class="flex items-center justify-between text-xs font-bold">
+                    <span class="text-amber-700 bg-amber-50 border border-amber-200 px-3 py-1 rounded-xl">
+                        <i class="fa-solid fa-fire mr-1 text-amber-500"></i>Chuỗi đúng: <span id="quiz-streak">0</span>
+                    </span>
+                    <span class="text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-xl">
+                        Điểm: <span id="quiz-score">0</span> / <span id="quiz-total">0</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Question Box -->
+            <div class="bg-white rounded-3xl p-4 sm:p-6 border border-slate-200 space-y-4 shadow-sm">
+                <div class="flex items-center justify-between gap-2">
+                    <span id="quiz-q-badge" class="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200">
+                        Đồng nghĩa TOPIK II
+                    </span>
+                    <button onclick="speakQuizPrompt()" class="text-xs font-bold text-indigo-700 bg-indigo-50 active:bg-indigo-100 border border-indigo-200 px-3 py-1.5 rounded-full flex items-center gap-1.5">
+                        <i class="fa-solid fa-volume-high"></i> Nghe câu
+                    </button>
+                </div>
+
+                <div class="space-y-2">
+                    <p id="quiz-q-instruction" class="text-xs text-slate-500 font-semibold"></p>
+                    <div id="quiz-q-prompt" class="font-kr text-lg sm:text-xl font-bold text-slate-900 leading-relaxed bg-slate-50 p-3.5 rounded-2xl border border-slate-200"></div>
+                    <p id="quiz-q-subhint" class="text-xs text-amber-700 font-medium italic"></p>
+                </div>
+
+                <div id="quiz-options" class="grid grid-cols-1 gap-2.5"></div>
+
+                <div id="quiz-feedback" class="hidden rounded-2xl p-4 border space-y-3">
+                    <div class="flex items-center justify-between gap-2">
+                        <p id="quiz-feedback-title" class="font-extrabold text-sm"></p>
+                        <button onclick="nextQuizQuestion()" class="px-4 py-2 rounded-xl bg-indigo-600 active:bg-indigo-700 text-white text-xs font-extrabold shadow-xs flex items-center gap-1.5 shrink-0">
+                            Câu tiếp <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    <div id="quiz-feedback-detail" class="text-xs text-slate-700 space-y-1.5 leading-relaxed"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FLOATING BOTTOM PILL NAVIGATION BAR (Light Mode) -->
+    <nav class="fixed bottom-2 left-2 right-2 z-50 bg-white/95 backdrop-blur border border-slate-200 rounded-2xl shadow-xl pb-safe">
+        <div class="max-w-3xl mx-auto grid grid-cols-4 px-1.5 py-1.5 gap-1">
+            <button onclick="switchTab('grammar')" id="botnav-grammar" class="flex flex-col items-center justify-center py-1.5 rounded-xl bg-indigo-50 text-indigo-700 font-extrabold transition">
+                <i class="fa-solid fa-book-open text-sm mb-0.5"></i>
+                <span class="text-[10px]">50 Ngữ pháp</span>
+            </button>
+            <button onclick="switchTab('synonyms')" id="botnav-synonyms" class="flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-500 font-semibold transition relative">
+                <span class="absolute top-1 right-4 w-2 h-2 rounded-full bg-amber-500"></span>
+                <i class="fa-solid fa-layer-group text-sm mb-0.5"></i>
+                <span class="text-[10px]">39 Đồng nghĩa</span>
+            </button>
+            <button onclick="switchTab('flashcards')" id="botnav-flashcards" class="flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-500 font-semibold transition">
+                <i class="fa-solid fa-clone text-sm mb-0.5"></i>
+                <span class="text-[10px]">Flashcard</span>
+            </button>
+            <button onclick="switchTab('quiz')" id="botnav-quiz" class="flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-500 font-semibold transition">
+                <i class="fa-solid fa-bolt text-sm mb-0.5"></i>
+                <span class="text-[10px]">Luyện tập</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Reset Modal -->
+    <div id="reset-modal" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="bg-white border border-slate-200 rounded-3xl max-w-sm w-full p-5 shadow-2xl space-y-4">
+            <div class="flex items-center gap-3 text-rose-600">
+                <div class="w-10 h-10 rounded-2xl bg-rose-100 flex items-center justify-center text-lg shrink-0">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <h3 class="text-base font-extrabold text-slate-900">Đặt lại tiến độ?</h3>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Xoá toàn bộ đánh dấu "Đã thuộc" của 50 Ngữ pháp và 39 Nhóm đồng nghĩa để học lại từ đầu?
+            </p>
+            <div class="flex justify-end gap-2 pt-1">
+                <button onclick="closeResetModal()" class="px-4 py-2.5 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs">Huỷ</button>
+                <button onclick="confirmResetProgress()" class="px-4 py-2.5 rounded-xl bg-rose-600 text-white font-bold text-xs">Xoá tiến độ</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================================
+        // PART B: ALL 50 GRAMMAR ITEMS (30 Vĩ tố liên kết + 20 Vĩ tố kết thúc câu)
+        // ============================================================================
+        const grammarList = [
+            // Section 2.1: Vĩ tố liên kết (30 items)
+            { id: "1-1", stt: 1, cat: "2.1", kr: "-자마자", vi: "ngay sau khi", exKr: "집에 도착하자마자 잠이 들었다.", exVi: "Ngay sau khi về đến nhà tôi đã ngủ thiếp đi." },
+            { id: "1-2", stt: 2, cat: "2.1", kr: "-다가", vi: "đang...thì, trong khi", exKr: "책을 읽다가 잠이 들었다.", exVi: "Đang đọc sách thì ngủ quên." },
+            { id: "1-3", stt: 3, cat: "2.1", kr: "-거나", vi: "hoặc, hay", exKr: "주말에는 영화를 보거나 운동을 해요.", exVi: "Cuối tuần tôi xem phim hoặc tập thể dục." },
+            { id: "1-4", stt: 4, cat: "2.1", kr: "-고 나서", vi: "sau khi", exKr: "밥을 먹고 나서 약을 드세요.", exVi: "Hãy uống thuốc sau khi ăn cơm." },
+            { id: "1-5", stt: 5, cat: "2.1", kr: "-(으)ㄹ까 봐서", vi: "sợ rằng, e rằng", exKr: "기차를 놓칠까 봐서 택시를 탔다.", exVi: "Sợ rằng lỡ tàu nên tôi đã bắt taxi." },
+            { id: "1-6", stt: 6, cat: "2.1", kr: "-(으)ㄴ/는데", vi: "1. bối cảnh. 2. nhưng", exKr: "비가 오는데 우산이 없어요.", exVi: "Trời đang mưa nhưng tôi không có ô." },
+            { id: "1-7", stt: 7, cat: "2.1", kr: "-아/어야", vi: "phải ... thì", exKr: "한국어를 잘해야 취직할 수 있다.", exVi: "Phải giỏi tiếng Hàn thì mới xin việc được." },
+            { id: "1-8", stt: 8, cat: "2.1", kr: "-(으)려고", vi: "để", exKr: "유학을 가려고 한국어를 배워요.", exVi: "Tôi học tiếng Hàn để đi du học." },
+            { id: "1-9", stt: 9, cat: "2.1", kr: "-느라고", vi: "do mải mê làm gì ... nên không thể", exKr: "미뤄 두었던 숙제를 하느라고 이번 주에 정신없이 바빴다.", exVi: "Do mải làm bài tập bị dồn lại nên tuần này bận tối mắt." },
+            { id: "1-10", stt: 10, cat: "2.1", kr: "-(으)려면", vi: "nếu muốn, nếu định", exKr: "제시간에 도착하려면 지금 출발해야 해요.", exVi: "Nếu muốn đến đúng giờ thì phải xuất phát ngay." },
+            { id: "1-11", stt: 11, cat: "2.1", kr: "-(으)ㄹ수록", vi: "càng... càng", exKr: "한국어는 배울수록 재미있다.", exVi: "Tiếng Hàn càng học càng thú vị." },
+            { id: "1-12", stt: 12, cat: "2.1", kr: "-(으)ㄴ/는 데다가", vi: "thêm vào đó", exKr: "비도 오는 데다가 바람도 많이 분다.", exVi: "Trời mưa, thêm vào đó gió còn thổi mạnh." },
+            { id: "1-13", stt: 13, cat: "2.1", kr: "-아/어서", vi: "1. vì ... nên. 2. rồi, và, sau đó", exKr: "배가 아파서 병원에 갔어요.", exVi: "Vì đau bụng nên tôi đã đi bệnh viện." },
+            { id: "1-14", stt: 14, cat: "2.1", kr: "-든지", vi: "dù.../ hay, hoặc ...", exKr: "사과든지 배든지 다 좋아해요.", exVi: "Dù là táo hay lê tôi đều thích." },
+            { id: "1-15", stt: 15, cat: "2.1", kr: "-아/어서 그런지", vi: "không biết có phải là vì... mà", exKr: "날씨가 추워서 그런지 거리에 사람이 없다.", exVi: "Không biết có phải vì trời lạnh mà ngoài đường vắng người." },
+            { id: "1-16", stt: 16, cat: "2.1", kr: "-(으)면", vi: "nếu...thì", exKr: "시간이 있으면 같이 영화 볼까요?", exVi: "Nếu có thời gian thì mình cùng xem phim nhé?" },
+            { id: "1-17", stt: 17, cat: "2.1", kr: "-더니", vi: "1. vì ... nên = 아/어서. 2. nhưng = 지만", exKr: "어제는 춥더니 오늘은 따뜻하네요.", exVi: "Hôm qua thì lạnh nhưng hôm nay ấm áp nhỉ." },
+            { id: "1-18", stt: 18, cat: "2.1", kr: "-(으)니까", vi: "vì ... nên", exKr: "길이 막히니까 지하철을 타세요.", exVi: "Vì tắc đường nên hãy đi tàu điện ngầm." },
+            { id: "1-19", stt: 19, cat: "2.1", kr: "(으)ㄴ/는/(으)ㄹ지 (모르다/알다)", vi: "không biết là..., có biết là ...", exKr: "그 사람이 언제 올지 모르겠어요.", exVi: "Tôi không biết khi nào người đó sẽ đến." },
+            { id: "1-20", stt: 20, cat: "2.1", kr: "-(으)면서", vi: "vừa ... vừa , đồng thời", exKr: "음악을 들으면서 운동을 해요.", exVi: "Tôi vừa nghe nhạc vừa tập thể dục." },
+            { id: "1-21", stt: 21, cat: "2.1", kr: "-(으)ㄴ/는 대신에", vi: "thay vì, thay cho, thay vào đó", exKr: "커피를 마시는 대신에 차를 마셨다.", exVi: "Thay vì uống cà phê, tôi đã uống trà." },
+            { id: "1-22", stt: 22, cat: "2.1", kr: "-다가 보면", vi: "nếu liên tục làm gì đó thì", exKr: "열심히 연습하다가 보면 실력이 늘 거예요.", exVi: "Nếu cứ liên tục luyện tập chăm chỉ thì năng lực sẽ tăng." },
+            { id: "1-23", stt: 23, cat: "2.1", kr: "(아무리) - 아/어도", vi: "dù", exKr: "아무리 바빠도 아침은 꼭 먹는다.", exVi: "Dù bận thế nào tôi cũng nhất định ăn sáng." },
+            { id: "1-24", stt: 24, cat: "2.1", kr: "-기에/길래", vi: "vì ... nên ( -길래 hay dùng trong giao tiếp )", exKr: "옷이 예쁘길래 하나 샀어요.", exVi: "Vì áo đẹp nên tôi đã mua một cái." },
+            { id: "1-25", stt: 25, cat: "2.1", kr: "-는 바람에", vi: "vì, do, bởi ... nên", exKr: "늦잠을 자는 바람에 지각했다.", exVi: "Do ngủ dậy muộn nên tôi bị đi trễ." },
+            { id: "1-26", stt: 26, cat: "2.1", kr: "-도록", vi: "1. để. 2. đến tận lúc", exKr: "밤이 늦도록 이야기를 나누었다.", exVi: "Trò chuyện đến tận lúc đêm muộn." },
+            { id: "1-27", stt: 27, cat: "2.1", kr: "-(으)ㄴ 채로", vi: "giữ nguyên trạng thái của hành động", exKr: "안경을 쓴 채로 세수를 했다.", exVi: "Rửa mặt trong trạng thái vẫn đeo kính." },
+            { id: "1-28", stt: 28, cat: "2.1", kr: "-더라도", vi: "cho dù có/dù có ... thì", exKr: "실패하더라도 포기하지 마세요.", exVi: "Cho dù có thất bại thì cũng đừng bỏ cuộc." },
+            { id: "1-29", stt: 29, cat: "2.1", kr: "-는 김에", vi: "nhân tiện, tiện thể", exKr: "시장에 가는 김에 과일도 샀다.", exVi: "Nhân tiện đi chợ tôi đã mua luôn hoa quả." },
+            { id: "1-30", stt: 30, cat: "2.1", kr: "-(으)ㄴ/는 덕분에", vi: "nhờ vào, nhờ có", exKr: "선생님이 도와주신 덕분에 합격했어요.", exVi: "Nhờ có thầy cô giúp đỡ mà tôi đã thi đỗ." },
+
+            // Section 2.2: Vĩ tố kết thúc câu (20 items)
+            { id: "2-1", stt: 1, cat: "2.2", kr: "-아/어 놓다", vi: "sẵn rồi, ... sẵn", exKr: "식사 준비를 다 해 놓았어요.", exVi: "Tôi đã chuẩn bị sẵn bữa ăn hết rồi." },
+            { id: "2-2", stt: 2, cat: "2.2", kr: "-(으)ㄹ 리가 없다", vi: "không có lí nào mà...", exKr: "그가 거짓말을 했을 리가 없다.", exVi: "Không có lí nào anh ấy lại nói dối." },
+            { id: "2-3", stt: 3, cat: "2.2", kr: "-기로 했다", vi: "quyết định, quyết tâm làm gì.", exKr: "올해부터 담배를 끊기로 했다.", exVi: "Tôi đã quyết định bỏ thuốc lá từ năm nay." },
+            { id: "2-4", stt: 4, cat: "2.2", kr: "-아/어 두다", vi: "sẵn rồi, ... sẵn ( lâu hơn so với -아/어 놓다)", exKr: "비상금을 통장에 넣어 두었다.", exVi: "Tôi đã cất sẵn tiền dự phòng vào sổ tiết kiệm." },
+            { id: "2-5", stt: 5, cat: "2.2", kr: "-(으)면 되다", vi: "nếu làm việc gì... thì được", exKr: "서류는 내일까지 제출하면 됩니다.", exVi: "Hồ sơ chỉ cần nộp trước ngày mai là được." },
+            { id: "2-6", stt: 6, cat: "2.2", kr: "-(으)ㄹ지도 모르다", vi: "có lẽ", exKr: "오후에 비가 올지도 몰라요.", exVi: "Có lẽ buổi chiều trời sẽ mưa." },
+            { id: "2-7", stt: 7, cat: "2.2", kr: "-게 되다", vi: "bị, được, trở nên", exKr: "다음 달에 한국에서 일하게 되었어요.", exVi: "Tháng sau tôi được làm việc ở Hàn Quốc rồi." },
+            { id: "2-8", stt: 8, cat: "2.2", kr: "-(으)ㄴ/는 척하다", vi: "giả vờ, giả bộ", exKr: "바쁜 척하지 말고 좀 도와줘요.", exVi: "Đừng giả vờ bận nữa mà hãy giúp tôi một chút." },
+            { id: "2-9", stt: 9, cat: "2.2", kr: "-게 하다", vi: "làm cho, sai khiến", exKr: "어머니는 아이에게 책을 읽게 했다.", exVi: "Mẹ cho/bắt em bé đọc sách." },
+            { id: "2-10", stt: 10, cat: "2.2", kr: "-아/어 보이다", vi: "trông có vẻ", exKr: "오늘 기분이 좋아 보이네요.", exVi: "Hôm nay trông bạn có vẻ tâm trạng tốt nhỉ." },
+            { id: "2-11", stt: 11, cat: "2.2", kr: "-(으)ㄴ 적이 있다/없다", vi: "chưa từng, đã từng làm gì", exKr: "제주도에 가 본 적이 있어요.", exVi: "Tôi đã từng đi đảo Jeju rồi." },
+            { id: "2-12", stt: 12, cat: "2.2", kr: "-아/어 버리다", vi: "hành vi đã kết thúc hoàn toàn", exKr: "케이크를 혼자 다 먹어 버렸다.", exVi: "Tôi đã ăn hết sạch cái bánh một mình rồi." },
+            { id: "2-13", stt: 13, cat: "2.2", kr: "-아/어 있다", vi: "đang (chỉ trạng thái)", exKr: "교실 문이 열려 있어요.", exVi: "Cửa phòng học đang mở." },
+            { id: "2-14", stt: 14, cat: "2.2", kr: "-(으)ㄴ/는 모양이다", vi: "hình như, có vẻ là", exKr: "밖에 비가 오는 모양이다.", exVi: "Hình như bên ngoài trời đang mưa." },
+            { id: "2-15", stt: 15, cat: "2.2", kr: "-아/어 가다", vi: "đang và sẽ", exKr: "일이 거의 끝나 갑니다.", exVi: "Công việc đang dần kết thúc rồi." },
+            { id: "2-16", stt: 16, cat: "2.2", kr: "-기 마련이다", vi: "tất nhiên là, đương nhiên là ...", exKr: "노력하면 성공하기 마련이다.", exVi: "Nếu nỗ lực thì đương nhiên sẽ thành công." },
+            { id: "2-17", stt: 17, cat: "2.2", kr: "-(으)ㄴ/는 셈이다", vi: "coi như là, xem như là, giống như là...", exKr: "시험이 하나만 남았으니 다 끝난 셈이다.", exVi: "Chỉ còn 1 bài thi nữa nên coi như là xong hết rồi." },
+            { id: "2-18", stt: 18, cat: "2.2", kr: "-나 보다", vi: "hình như, có vẻ...", exKr: "그 식당은 음식이 맛있나 봐요.", exVi: "Nhà hàng đó có vẻ đồ ăn ngon đấy." },
+            { id: "2-19", stt: 19, cat: "2.2", kr: "-아/어 오다", vi: "đã và đang", exKr: "지금까지 부모님과 함께 살아 왔다.", exVi: "Từ trước đến nay tôi đã và đang sống cùng bố mẹ." },
+            { id: "2-20", stt: 20, cat: "2.2", kr: "-(으)ㄹ 뻔했다", vi: "suýt nữa thì", exKr: "계단에서 넘어질 뻔했다.", exVi: "Tôi suýt nữa thì bị ngã ở cầu thang." }
+        ];
+
+        // ============================================================================
+        // PART C: ALL 39 SYNONYM GROUPS (Pages 11 to 20)
+        // ============================================================================
+        const synonymGroups = [
+            {
+                id: "syn-1", num: 1,
+                title: "1) Nhóm ngữ pháp 'phỏng đoán (1)'",
+                meaning: "có vẻ như",
+                forms: ["-(으)ㄴ/는 것 같다", "-(으)ㄴ/는 듯하다", "-나 보다 / (으)ㄴ가 보다", "-(으)ㄴ/는 모양이다"],
+                examples: [
+                    "짐 옮기는 소리가 나는 걸 보니까 옆집이 이사를 <u>가는 것 같다</u>.",
+                    "짐 옮기는 소리가 나는 걸 보니까 옆집이 이사를 <u>가는 듯하다</u>.",
+                    "짐 옮기는 소리가 나는 걸 보니까 옆집이 이사를 <u>가나 보다</u>.",
+                    "짐 옮기는 소리가 나는 걸 보니까 옆집이 이사를 <u>가는 모양이다</u>."
+                ],
+                vi: "Nghe tiếng chuyển đồ thì có vẻ như nhà bên cạnh đang chuyển nhà."
+            },
+            {
+                id: "syn-2", num: 2,
+                title: "2) Nhóm ngữ pháp 'phỏng đoán (2)'",
+                meaning: "không chừng, có vẻ như",
+                forms: ["-(으)ㄹ지도 모르다", "-(으)ㄹ 수도 있다"],
+                examples: [
+                    "예상보다 손님이 많이 와서 준비한 음식이 <u>부족할지도 모른다</u>.",
+                    "예상보다 손님이 많이 와서 준비한 음식이 <u>부족할 수도 있다</u>."
+                ],
+                vi: "Khách đến đông hơn dự kiến nên thức ăn chuẩn bị không chừng sẽ bị thiếu."
+            },
+            {
+                id: "syn-3", num: 3,
+                title: "3) Nhóm ngữ pháp 'phỏng đoán (chắc chắn) (3)'",
+                meaning: "không có lí gì mà",
+                forms: ["-(으)ㄹ 리가 없다", "-지 않았을 것이다"],
+                examples: [
+                    "그는 정직하기 때문에 거짓말을 <u>했을 리가 없다</u>.",
+                    "그는 정직하기 때문에 거짓말을 <u>하지 않았을 것이다</u>."
+                ],
+                vi: "Vì anh ấy trung thực nên không có lí gì mà anh ấy đã nói dối."
+            },
+            {
+                id: "syn-4", num: 4,
+                title: "4) Nhóm ngữ pháp 'mức độ (1)'",
+                meaning: "đến mức mà",
+                forms: ["-(으)ㄹ 정도로", "-(으)ㄹ 만큼", "몰라보게"],
+                examples: [
+                    "친구를 얼마 전에 만났는데 <u>몰라볼 정도로</u> 살이 많이 빠져 있었다.",
+                    "친구를 얼마 전에 만났는데 <u>몰라볼 만큼</u> 살이 많이 빠져 있었다.",
+                    "친구를 얼마 전에 만났는데 <u>몰라보게</u> 살이 많이 빠져 있었다."
+                ],
+                vi: "Cách đây không lâu gặp lại bạn mà bạn ấy gầy đi nhiều đến mức không nhận ra."
+            },
+            {
+                id: "syn-5", num: 5,
+                title: "5) Nhóm ngữ pháp 'mức độ (thời gian) (2)'",
+                meaning: "đến tận",
+                forms: ["-도록", "-(으)ㄹ 때까지"],
+                examples: [
+                    "아이는 날이 <u>어두워지도록</u> 아무 연락도 없었다.",
+                    "아이는 날이 <u>어두워질 때까지</u> 아무 연락도 없었다."
+                ],
+                vi: "Đứa trẻ cho đến tận lúc trời tối vẫn không có liên lạc gì."
+            },
+            {
+                id: "syn-6", num: 6,
+                title: "6) Nhóm ngữ pháp 'hiển nhiên'",
+                meaning: "đương nhiên",
+                forms: ["-기 마련이다", "-는 법이다", "-게 돼 있다"],
+                examples: [
+                    "물건이 오래되면 사용하지 않아도 <u>낡기 마련이다</u>.",
+                    "물건이 오래되면 사용하지 않아도 <u>낡는 법이다</u>.",
+                    "물건이 오래되면 사용하지 않아도 <u>낡게 돼 있다</u>."
+                ],
+                vi: "Đồ vật để lâu thì dù không dùng đương nhiên cũng sẽ cũ đi."
+            },
+            {
+                id: "syn-7", num: 7,
+                title: "7) Nhóm ngữ pháp 'duy nhất (1)'",
+                meaning: "không còn cách nào khác, không thể không...",
+                forms: ["-(으)ㄹ 수밖에 없다", "-아/어야만 하다", "-지 않을 수 없다"],
+                examples: [
+                    "열이 너무 심하게 나서 병원에 <u>갈 수밖에 없었다</u>.",
+                    "열이 너무 심하게 나서 병원에 <u>가야만 했다</u>.",
+                    "열이 너무 심하게 나서 병원에 <u>가지 않을 수 없었다</u>."
+                ],
+                vi: "Vì sốt quá nặng nên không còn cách nào khác là phải đi bệnh viện."
+            },
+            {
+                id: "syn-8", num: 8,
+                title: "8) Nhóm ngữ pháp 'duy nhất (2)'",
+                meaning: "chỉ, mỗi khi",
+                forms: ["-기만 하다", "-(으)ㄹ 때 마다"],
+                examples: [
+                    "목감기에 걸려서 그런지 음식을 <u>먹기만 하면</u> 목이 아프다.",
+                    "목감기에 걸려서 그런지 음식을 <u>먹을 때마다</u> 목이 아프다."
+                ],
+                vi: "Không biết có phải bị cảm đau họng không mà cứ mỗi khi ăn là cổ họng lại đau."
+            },
+            {
+                id: "syn-9", num: 9,
+                title: "9) Nhóm ngữ pháp 'bao hàm (thêm vào) (1)'",
+                meaning: "không những....mà còn",
+                forms: ["-고", "-(으)며", "-(으)ㄹ 뿐만 아니라", "-(으)ㄹ 뿐더러", "-(으)ㄴ/는 데다가", "-(으)ㄴ/는 것은 물론이고"],
+                examples: [
+                    "이 식당은 음식 값이 <u>싸고</u> 종업원도 아주 친절하다.",
+                    "이 식당은 음식 값이 <u>싸며</u> 종업원도 아주 친절하다.",
+                    "이 식당은 음식 값이 <u>쌀 뿐만 아니라</u> 종업원도 아주 친절하다.",
+                    "이 식당은 음식 값이 <u>싼 데다가</u> 종업원도 아주 친절하다.",
+                    "이 식당은 음식 값이 <u>싼 것은 물론이고</u> 종업원도 아주 친절하다."
+                ],
+                vi: "Nhà hàng này giá đồ ăn không những rẻ mà nhân viên còn rất thân thiện."
+            },
+            {
+                id: "syn-10", num: 10,
+                title: "10) Nhóm ngữ pháp 'bao hàm (phủ định) (2)'",
+                meaning: "huống gì, huống chi",
+                forms: ["-은/는커녕", "-은 물론이고", "-은 말할 것도 없고"],
+                examples: [
+                    "목이 너무 아파서 <u>밥은커녕</u> 물조차 못 마신다.",
+                    "목이 너무 아파서 <u>밥은 물론이고</u> 물조차 못 마신다.",
+                    "목이 너무 아파서 <u>밥은 말할 것도 없고</u> 물조차 못 마신다."
+                ],
+                vi: "Cổ họng đau quá nên huống chi là cơm, đến nước cũng không uống nổi."
+            },
+            {
+                id: "syn-11", num: 11,
+                title: "11) Nhóm ngữ pháp 'mục đích (1)'",
+                meaning: "để",
+                forms: ["-게", "-도록"],
+                examples: [
+                    "금요일이 장학금 신청일이라서 <u>잊어버리지 않게</u> 달력에 표시해 두었다.",
+                    "금요일이 장학금 신청일이라서 <u>잊어버리지 않도록</u> 달력에 표시해 두었다."
+                ],
+                vi: "Thứ sáu là ngày đăng ký học bổng nên tôi đã đánh dấu sẵn vào lịch để không quên."
+            },
+            {
+                id: "syn-12", num: 12,
+                title: "12) Nhóm ngữ pháp 'mục đích (2)'",
+                meaning: "để",
+                forms: ["-기 위해서", "-(으)려고", "-고자"],
+                examples: [
+                    "요즘 살을 <u>빼기 위해서</u> 열심히 운동을 하고 있다.",
+                    "요즘 살을 <u>빼려고</u> 열심히 운동을 하고 있다.",
+                    "요즘 살을 <u>빼고자</u> 열심히 운동을 하고 있다."
+                ],
+                vi: "Dạo này tôi đang chăm chỉ tập thể dục để giảm cân."
+            },
+            {
+                id: "syn-13", num: 13,
+                title: "13) Nhóm ngữ pháp 'nguyên nhân – kết quả (1)'",
+                meaning: "vì...nên",
+                forms: ["-는 바람에", "-는 통에", "-아/어서", "-느라고", "-ㄴ 탓에"],
+                examples: [
+                    "사람들이 하도 <u>떠드는 바람에</u> 친구하고 대화를 할 수가 없었다.",
+                    "사람들이 하도 <u>떠드는 통에</u> 친구하고 대화를 할 수가 없었다.",
+                    "사람들이 하도 <u>떠들어서</u> 친구하고 대화를 할 수가 없었다.",
+                    "서둘러 <u>나오는 바람에</u> 지갑을 안 가지고 나왔다.",
+                    "서둘러 <u>나오느라고</u> 지갑을 안 가지고 나왔다.",
+                    "서둘러 <u>나온 탓에</u> 지갑을 안 가지고 나왔다."
+                ],
+                vi: "Vì mọi người làm ồn quá nên không thể nói chuyện với bạn / Vì vội ra ngoài nên quên mang ví."
+            },
+            {
+                id: "syn-14", num: 14,
+                title: "14) Nhóm ngữ pháp 'nguyên nhân – kết quả (2)'",
+                meaning: "vì...nên",
+                forms: ["-ㄴ 나머지", "-ㄴ 탓에"],
+                examples: [
+                    "나는 그림 작업에 <u>집중한 나머지</u> 중요한 전화를 받지 못했다.",
+                    "나는 그림 작업에 <u>집중한 탓에</u> 중요한 전화를 받지 못했다."
+                ],
+                vi: "Vì quá tập trung vào việc vẽ tranh nên tôi đã không nhận được cuộc gọi quan trọng."
+            },
+            {
+                id: "syn-15", num: 15,
+                title: "15) Nhóm ngữ pháp 'lo ngại'",
+                meaning: "sợ rằng...",
+                forms: ["-(으)ㄹ까 봐(서)", "-(으)ㄹ 것 같아서", "-(으)ㄹ 수 없을지도 몰라서"],
+                examples: [
+                    "처음 자전거를 배울 때 <u>넘어질까 봐</u> 걱정했는데 생각보다 쉬웠다.",
+                    "처음 자전거를 배울 때 <u>넘어질 것 같아서</u> 걱정했는데 생각보다 쉬웠다.",
+                    "지각을 하면 앞자리에 <u>앉을 수 없을까 봐</u> 미리 강의실로 갔다.",
+                    "지각을 하면 앞자리에 <u>앉을 수 없을지도 몰라서</u> 미리 강의실로 갔다."
+                ],
+                vi: "Lúc mới tập xe đạp sợ bị ngã nhưng dễ hơn nghĩ / Sợ đi muộn không ngồi được bàn đầu nên đã đến giảng đường trước."
+            },
+            {
+                id: "syn-16", num: 16,
+                title: "16) Nhóm ngữ pháp 'tuần tự'",
+                meaning: "ngay sau khi",
+                forms: ["-자마자", "-는 대로", "-(으)면 바로", "-기가 무섭게"],
+                examples: [
+                    "나는 버스터미널에 <u>도착하자마자</u> 부모님께 전화를 드릴 생각이다.",
+                    "나는 버스터미널에 <u>도착하는 대로</u> 부모님께 전화를 드릴 생각이다.",
+                    "나는 버스터미널에 <u>도착하면 바로</u> 부모님께 전화를 드릴 생각이다.",
+                    "백화점 입장이 <u>시작되자마자</u> 손님들이 몰려들었다.",
+                    "백화점 입장이 <u>시작되기가 무섭게</u> 손님들이 몰려들었다."
+                ],
+                vi: "Ngay sau khi đến bến xe tôi định gọi cho bố mẹ / Ngay khi trung tâm thương mại mở cửa khách đã ùa vào."
+            },
+            {
+                id: "syn-17", num: 17,
+                title: "17) Nhóm ngữ pháp 'phán đoán (1)'",
+                meaning: "không khác gì, giống với",
+                forms: ["-ㄴ 셈이다", "-ㄴ 거나 같다", "-ㄴ 거나 마찬가지이다", "-ㄴ 거나 다름없다"],
+                examples: [
+                    "오늘이 벌써 12월 말이니까 올해도 <u>다 지나간 셈이다</u>.",
+                    "오늘이 벌써 12월 말이니까 올해도 <u>다 지나간 거나 같다</u>.",
+                    "오늘이 벌써 12월 말이니까 올해도 <u>다 지나간 거나 마찬가지이다</u>.",
+                    "오늘이 벌써 12월 말이니까 올해도 <u>다 지나간 거나 다름없었다</u>."
+                ],
+                vi: "Hôm nay đã là cuối tháng 12 rồi nên năm nay coi như/không khác gì đã qua hết rồi."
+            },
+            {
+                id: "syn-18", num: 18,
+                title: "18) Nhóm ngữ pháp 'phán đoán (2)'",
+                meaning: "đáng, cũng có thể",
+                forms: ["-(으)ㄹ 만하다", "-(으)ㄹ 수 있다"],
+                examples: [
+                    "서울 근교에는 가족들과 함께 즐겁게 <u>놀 만한</u> 곳이 많이 있다.",
+                    "서울 근교에는 가족들과 함께 즐겁게 <u>놀 수 있는</u> 곳이 많이 있다."
+                ],
+                vi: "Ở ngoại ô Seoul có nhiều nơi đáng/có thể đi chơi vui vẻ cùng gia đình."
+            },
+            {
+                id: "syn-19", num: 19,
+                title: "19) Nhóm ngữ pháp 'phán đoán: chủ quan (3)'",
+                meaning: "trông có vẻ",
+                forms: ["-아/어 보이다", "-(으)ㄹ 것 같다"],
+                examples: [
+                    "친구가 기분 좋은 일이 있는지 기분이 <u>좋아 보였다</u>.",
+                    "친구가 기분 좋은 일이 있는지 기분이 <u>좋은 것 같았다</u>."
+                ],
+                vi: "Không biết bạn có chuyện gì vui mà trông tâm trạng có vẻ rất tốt."
+            },
+            {
+                id: "syn-20", num: 20,
+                title: "20) Nhóm ngữ pháp 'phán đoán (4)'",
+                meaning: "nghĩ rằng, không ngờ rằng",
+                forms: ["-다고 생각하다", "-는 줄 몰랐다"],
+                examples: [
+                    "나는 지난주에 모임이 있어서 이번 주 모임은 <u>있는 줄 몰랐다</u>.",
+                    "나는 지난주에 모임이 있어서 이번 주 모임은 <u>없다고 생각했다</u>."
+                ],
+                vi: "Vì tuần trước có buổi họp mặt rồi nên tôi không ngờ/nghĩ rằng tuần này không có."
+            },
+            {
+                id: "syn-21", num: 21,
+                title: "21) Nhóm ngữ pháp 'lựa chọn (1)'",
+                meaning: "dù..., dù không...",
+                forms: ["-(으)나 마나", "-아/어도", "-지 않아도", "-(으)ㄹ 것도 없이"],
+                examples: [
+                    "<u>물어보나 마나</u> 동생은 집에 있겠다고 할 것이다.",
+                    "<u>물어봐도</u> 동생은 집에 있겠다고 할 것이다.",
+                    "<u>물어보지 않아도</u> 동생은 집에 있겠다고 할 것이다.",
+                    "<u>물어볼 것도 없이</u> 동생은 집에 있겠다고 할 것이다."
+                ],
+                vi: "Dù có hỏi hay không cần hỏi thì em tôi cũng sẽ nói là ở nhà thôi."
+            },
+            {
+                id: "syn-22", num: 22,
+                title: "22) Nhóm ngữ pháp 'lựa chọn (không có liên quan) (2)'",
+                meaning: "dù...",
+                forms: ["-든지", "-더라도"],
+                examples: [
+                    "저 사람과 같이 일한다면 뭘 <u>하든지</u> 열심히 하는 사람이면 좋겠다.",
+                    "저 사람과 같이 일한다면 뭘 <u>하더라도</u> 열심히 하는 사람이면 좋겠다."
+                ],
+                vi: "Nếu làm việc cùng người đó thì dù làm việc gì cũng mong đó là người chăm chỉ."
+            },
+            {
+                id: "syn-23", num: 23,
+                title: "23) Nhóm ngữ pháp 'tiến hành'",
+                meaning: "đang trên đường",
+                forms: ["-는 길에", "-다가"],
+                examples: [
+                    "집에 <u>들어오는 길에</u> 꽃이 예뻐서 한 다발을 샀다.",
+                    "집에 <u>들어오다가</u> 꽃이 예뻐서 한 다발을 샀다."
+                ],
+                vi: "Đang trên đường về nhà thấy hoa đẹp nên tôi đã mua một bó."
+            },
+            {
+                id: "syn-24", num: 24,
+                title: "24) Nhóm ngữ pháp 'hành động (1)'",
+                meaning: "dù có thực hiện việc gì",
+                forms: ["-아/어야", "-아/어도", "-ㄴ/는다고 해도"],
+                examples: [
+                    "좀 비싼 것 같지만 다른 가게에 <u>가 봐야</u> 값이 다 비슷할 것 같다.",
+                    "좀 비싼 것 같지만 다른 가게에 <u>가 봐도</u> 값이 다 비슷할 것 같다.",
+                    "좀 비싼 것 같지만 다른 가게에 <u>가 본다고 해도</u> 값이 다 비슷할 것 같다."
+                ],
+                vi: "Có vẻ hơi đắt nhưng dù có đi thử cửa hàng khác thì giá cũng tương tự thôi."
+            },
+            {
+                id: "syn-25", num: 25,
+                title: "25) Nhóm ngữ pháp 'hành động (2)'",
+                meaning: "giả vờ, giả bộ",
+                forms: ["-는 척했다", "-는 것처럼 행동했다", "-는 체했다"],
+                examples: [
+                    "회사 동료가 바빠 보였지만 도와주고 싶지 않아서 <u>모르는 척했다</u>.",
+                    "회사 동료가 바빠 보였지만 도와주고 싶지 않아서 <u>모르는 것처럼 행동했다</u>.",
+                    "회사 동료가 바빠 보였지만 도와주고 싶지 않아서 <u>모르는 체했다</u>."
+                ],
+                vi: "Đồng nghiệp trông có vẻ bận nhưng vì không muốn giúp nên tôi đã giả vờ không biết."
+            },
+            {
+                id: "syn-26", num: 26,
+                title: "26) Nhóm ngữ pháp 'duy nhất'",
+                meaning: "chỉ",
+                forms: ["-(으)ㄹ 뿐이다", "-(으)ㄹ 따름이다", "-에 불과하다", "-에 지나지 않는다"],
+                examples: [
+                    "바빠서 일을 못 끝냈다는 말은 <u>변명일 뿐이다</u>.",
+                    "바빠서 일을 못 끝냈다는 말은 <u>변명에 불과하다</u>.",
+                    "바빠서 일을 못 끝냈다는 말은 <u>변명에 지나지 않는다</u>.",
+                    "친구에게 항상 도움을 받기만 해서 <u>미안할 뿐이다</u>.",
+                    "친구에게 항상 도움을 받기만 해서 <u>미안할 따름이다</u>."
+                ],
+                vi: "Lời nói vì bận nên không xong việc chỉ là ngụy biện mà thôi / Luôn nhận giúp đỡ từ bạn nên chỉ biết thấy có lỗi."
+            },
+            {
+                id: "syn-27", num: 27,
+                title: "27) Nhóm ngữ pháp 'hối tiếc'",
+                meaning: "giá mà",
+                forms: ["-았/었어야 했다는", "-(으)ㄹ걸 그랬다는"],
+                examples: [
+                    "졸업하고 보니 학교 다닐 때 좀 더 열심히 <u>공부했어야 했다는</u> 생각이 든다.",
+                    "졸업하고 보니 학교 다닐 때 좀 더 열심히 <u>공부할걸 그랬다는</u> 생각이 든다."
+                ],
+                vi: "Tốt nghiệp rồi mới thấy giá mà hồi đi học mình học hành chăm chỉ hơn."
+            },
+            {
+                id: "syn-28", num: 28,
+                title: "28) Nhóm ngữ pháp 'kế hoạch'",
+                meaning: "vừa mới có ý định",
+                forms: ["-(으)려던 참이다", "-(으)려고 했다"],
+                examples: [
+                    "사무실이 너무 더워서 안 그래도 막 에어컨을 <u>켜려던 참이었다</u>.",
+                    "사무실이 너무 더워서 안 그래도 막 에어컨을 <u>켜려고 했다</u>."
+                ],
+                vi: "Văn phòng nóng quá nên tôi cũng vừa mới định bật điều hòa."
+            },
+            {
+                id: "syn-29", num: 29,
+                title: "29) Nhóm ngữ pháp 'phương pháp (nhất quán)'",
+                meaning: "theo như, giống với",
+                forms: ["-는 대로", "-는 것처럼", "-는 것과 같이"],
+                examples: [
+                    "요가를 배우는데 선생님이 <u>하는 대로</u> 따라 하기가 쉽지 않다.",
+                    "요가를 배우는데 선생님이 <u>하는 것처럼</u> 따라 하기가 쉽지 않다.",
+                    "요가를 배우는데 선생님이 <u>하는 것과 같이</u> 따라 하기가 쉽지 않다."
+                ],
+                vi: "Tôi đang học yoga mà làm theo giống như giáo viên hướng dẫn không hề dễ."
+            },
+            {
+                id: "syn-30", num: 30,
+                title: "30) Nhóm ngữ pháp 'điều kiện'",
+                meaning: "phụ thuộc vào",
+                forms: ["-N에 달려 있다 / V+기 나름이다", "-기 나름이다"],
+                examples: [
+                    "똑같은 재료인데도 음식 맛이 다른 걸 보면 음식은 <u>요리하기에 달려 있다</u>.",
+                    "똑같은 재료인데도 음식 맛이 다른 걸 보면 음식은 <u>요리하기 나름이다</u>."
+                ],
+                vi: "Cùng nguyên liệu như nhau mà vị khác nhau thì món ăn phụ thuộc vào cách nấu."
+            },
+            {
+                id: "syn-31", num: 31,
+                title: "31) Nhóm ngữ pháp 'kinh nghiệm'",
+                meaning: "do làm gì đó liên tục / vì...",
+                forms: ["-다가 보니까", "-는 탓에"],
+                examples: [
+                    "바빠서 식사를 제시간에 <u>못 하다가 보니까</u> 속이 쓰릴 때가 많아졌다.",
+                    "바빠서 식사를 제시간에 <u>못 하는 탓에</u> 속이 쓰릴 때가 많아졌다."
+                ],
+                vi: "Vì bận không ăn uống đúng giờ liên tục nên bụng hay bị xót."
+            },
+            {
+                id: "syn-32", num: 32,
+                title: "32) Nhóm ngữ pháp 'ví von, so sánh'",
+                meaning: "giống với",
+                forms: ["-듯이", "-ㄴ/는 것처럼"],
+                examples: [
+                    "나라마다 언어가 <u>다르듯이</u> 문화도 다르다.",
+                    "나라마다 언어가 <u>다른 것처럼</u> 문화도 다르다."
+                ],
+                vi: "Giống như mỗi nước có ngôn ngữ khác nhau, văn hóa cũng khác nhau."
+            },
+            {
+                id: "syn-33", num: 33,
+                title: "33) Nhóm ngữ pháp 'tương phản (1)'",
+                meaning: "trái với, ngược lại với",
+                forms: ["-ㄴ/는 반면에", "-ㄴ/는 데 반해"],
+                examples: [
+                    "이 제품은 열에 <u>강한 반면에</u> 습기에는 약하다.",
+                    "이 제품은 열에 <u>강한 데 반해</u> 습기에는 약하다."
+                ],
+                vi: "Sản phẩm này chịu nhiệt tốt nhưng trái lại thì yếu với độ ẩm."
+            },
+            {
+                id: "syn-34", num: 34,
+                title: "34) Nhóm ngữ pháp 'tương phản (2)'",
+                meaning: "mặc dù...",
+                forms: ["-(으)면서", "-고서도"],
+                examples: [
+                    "친구가 곤란할까 봐 그 사실을 <u>알면서</u> 모른 척했다.",
+                    "친구가 곤란할까 봐 그 사실을 <u>알고서도</u> 모른 척했다."
+                ],
+                vi: "Sợ bạn khó xử nên mặc dù biết sự thật tôi vẫn giả vờ không biết."
+            },
+            {
+                id: "syn-35", num: 35,
+                title: "35) Nhóm ngữ pháp 'tương phản (3)'",
+                meaning: "mặc dù...., nhưng",
+                forms: ["-(으)ㄴ/는데도", "-지만"],
+                examples: [
+                    "나는 공부를 열심히 <u>하는데도</u> 성적이 잘 오르지 않는다.",
+                    "나는 공부를 열심히 <u>하지만</u> 성적이 잘 오르지 않는다."
+                ],
+                vi: "Mặc dù tôi học hành rất chăm chỉ nhưng thành tích vẫn không tăng mấy."
+            },
+            {
+                id: "syn-36", num: 36,
+                title: "36) Nhóm ngữ pháp 'tương phản (4)'",
+                meaning: "có..nhưng mà",
+                forms: ["-는가 하면", "-기는 하지만"],
+                examples: [
+                    "이 영화는 재미있는 부분이 <u>있는가 하면</u> 지루한 부분도 꽤 있다.",
+                    "이 영화는 재미있는 부분이 <u>있기는 하지만</u> 지루한 부분도 꽤 있다."
+                ],
+                vi: "Bộ phim này có phần thú vị nhưng cũng có khá nhiều đoạn nhàm chán."
+            },
+            {
+                id: "syn-37", num: 37,
+                title: "37) Nhóm ngữ pháp 'tương phản (6)'",
+                meaning: "mặc dù",
+                forms: ["-고도", "-았/었는데도"],
+                examples: [
+                    "스마트폰이 복잡해서 그런지 어머니가 설명을 <u>듣고도</u> 모르겠다고 하셨다.",
+                    "스마트폰이 복잡해서 그런지 어머니가 설명을 <u>들었는데도</u> 모르겠다고 하셨다."
+                ],
+                vi: "Không biết có phải điện thoại thông minh phức tạp không mà mẹ mặc dù đã nghe giải thích vẫn bảo không hiểu."
+            },
+            {
+                id: "syn-38", num: 38,
+                title: "38) Nhóm ngữ pháp 'giả định (mục đích)'",
+                meaning: "nếu muốn, nếu định",
+                forms: ["-(으)려면", "-기 위해서는"],
+                examples: [
+                    "외국에서 생활을 <u>잘하려면</u> 그 나라의 문화를 이해하는 게 중요하다.",
+                    "외국에서 생활을 <u>잘하기 위해서는</u> 그 나라의 문화를 이해하는 게 중요하다."
+                ],
+                vi: "Nếu muốn sinh hoạt tốt ở nước ngoài thì việc hiểu văn hóa nước đó rất quan trọng."
+            },
+            {
+                id: "syn-39", num: 39,
+                title: "39) Nhóm ngữ pháp 'duy trì'",
+                meaning: "giữ nguyên trạng thái",
+                forms: ["-(으)ㄴ 채로", "-고"],
+                examples: [
+                    "저기 우산을 <u>쓴 채</u> 서 있는 사람이 오늘 소개할 사람이다.",
+                    "저기 우산을 <u>쓰고</u> 서 있는 사람이 오늘 소개할 사람이다."
+                ],
+                vi: "Người đang đứng che ô ở đằng kia là người hôm nay tôi sẽ giới thiệu."
+            }
+        ];
+
+        // ============================================================================
+        // STATE & PROGRESS STORAGE (Fresh v4 key)
+        // ============================================================================
+        const STORAGE_KEY = "topik_grammar_v4_progress";
+        let masteredIds = new Set();
+        let grammarFilter = "all";
+        let synFilter = "all";
+
+        // Flashcard state
+        let fcDeckType = "grammar";
+        let fcDeck = [];
+        let fcIndex = 0;
+        let fcFlipped = false;
+
+        // Quiz state
+        let quizMode = "synonyms";
+        let quizScore = 0;
+        let quizTotal = 0;
+        let quizStreak = 0;
+        let quizAnswered = false;
+        let currentQuizQuestion = null;
+
+        function loadProgress() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (Array.isArray(parsed)) masteredIds = new Set(parsed);
+                }
+            } catch (e) {
+                masteredIds = new Set();
+            }
+            updateProgressUI();
+        }
+
+        function saveProgress() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify([...masteredIds]));
+            } catch (e) {}
+            updateProgressUI();
+        }
+
+        function updateProgressUI() {
+            const total = grammarList.length + synonymGroups.length; // 89
+            const count = masteredIds.size;
+            const pct = Math.round((count / total) * 100);
+            document.getElementById("progress-text").textContent = `${count}/${total} (${pct}%)`;
+            document.getElementById("progress-bar").style.width = `${pct}%`;
+        }
+
+        function toggleMastered(id) {
+            if (masteredIds.has(id)) masteredIds.delete(id);
+            else masteredIds.add(id);
+            saveProgress();
+            renderGrammarList();
+            renderSynonymList();
+        }
+
+        // ============================================================================
+        // KOREAN TEXT-TO-SPEECH (Web Speech API)
+        // ============================================================================
+        function speakKorean(text) {
+            if (!("speechSynthesis" in window)) return;
+            window.speechSynthesis.cancel();
+            const cleanText = text
+                .replace(/<[^>]*>/g, "")
+                .replace(/[-~()]/g, " ")
+                .replace(/으/g, "")
+                .replace(/\//g, " ")
+                .trim();
+            const utter = new SpeechSynthesisUtterance(cleanText);
+            utter.lang = "ko-KR";
+            utter.rate = 0.92;
+            window.speechSynthesis.speak(utter);
+        }
+
+        // ============================================================================
+        // DUAL NAVIGATION SWITCHER
+        // ============================================================================
+        function switchTab(tab) {
+            const tabs = ["grammar", "synonyms", "flashcards", "quiz"];
+            tabs.forEach(t => {
+                const view = document.getElementById(`view-${t}`);
+                const topBtn = document.getElementById(`topnav-${t}`);
+                const botBtn = document.getElementById(`botnav-${t}`);
+                if (t === tab) {
+                    view.classList.remove("hidden");
+                    topBtn.className = "py-1.5 px-1 rounded-lg text-[11px] font-extrabold transition bg-indigo-600 text-white shadow-xs flex items-center justify-center gap-1 truncate";
+                    botBtn.className = "flex flex-col items-center justify-center py-1.5 rounded-xl bg-indigo-50 text-indigo-700 font-extrabold transition relative";
+                } else {
+                    view.classList.add("hidden");
+                    topBtn.className = "py-1.5 px-1 rounded-lg text-[11px] font-bold transition text-slate-600 hover:bg-white flex items-center justify-center gap-1 truncate";
+                    botBtn.className = "flex flex-col items-center justify-center py-1.5 rounded-xl text-slate-500 font-semibold transition relative";
+                }
+            });
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            if (tab === "flashcards") renderCurrentFlashcard();
+        }
+
+        // ============================================================================
+        // TAB 1: 50 GRAMMARS RENDERING
+        // ============================================================================
+        function toggleSampleBanner() {
+            document.getElementById("sample-banner-body").classList.toggle("hidden");
+            document.getElementById("banner-chevron").classList.toggle("rotate-180");
+        }
+
+        function checkBannerOption(opt) {
+            const btns = document.querySelectorAll(".banner-opt");
+            btns.forEach((b, i) => {
+                if (i + 1 === 4) {
+                    b.className = "banner-opt py-2 px-3 rounded-xl bg-emerald-600 text-white border border-emerald-600 font-kr text-xs sm:text-sm font-bold text-left";
+                } else if (i + 1 === opt) {
+                    b.className = "banner-opt py-2 px-3 rounded-xl bg-rose-100 text-rose-800 border border-rose-300 font-kr text-xs sm:text-sm font-semibold text-left";
+                }
+            });
+            document.getElementById("banner-answer-box").classList.remove("hidden");
+            speakKorean("미뤄 두었던 숙제를 하느라고 이번 주에 정신없이 바빴다.");
+        }
+
+        function setGrammarFilter(f) {
+            grammarFilter = f;
+            document.querySelectorAll(".gfilter-btn").forEach(btn => {
+                if (btn.dataset.gfilter === f) {
+                    btn.className = "gfilter-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition bg-indigo-600 text-white shadow-xs";
+                } else {
+                    btn.className = "gfilter-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition bg-slate-100 text-slate-700 border border-slate-200";
+                }
+            });
+            renderGrammarList();
+        }
+
+        function clearGrammarSearch() {
+            document.getElementById("grammar-search").value = "";
+            renderGrammarList();
+        }
+
+        function renderGrammarList() {
+            const q = document.getElementById("grammar-search").value.trim().toLowerCase();
+            document.getElementById("clear-grammar-search").classList.toggle("hidden", !q);
+
+            const filtered = grammarList.filter(item => {
+                if (grammarFilter === "2.1" && item.cat !== "2.1") return false;
+                if (grammarFilter === "2.2" && item.cat !== "2.2") return false;
+                if (grammarFilter === "mastered" && !masteredIds.has(item.id)) return false;
+                if (grammarFilter === "unmastered" && masteredIds.has(item.id)) return false;
+                if (q) {
+                    return item.kr.toLowerCase().includes(q) ||
+                           item.vi.toLowerCase().includes(q) ||
+                           item.exKr.toLowerCase().includes(q) ||
+                           item.exVi.toLowerCase().includes(q);
+                }
+                return true;
+            });
+
+            const container = document.getElementById("grammar-list-container");
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="bg-white rounded-2xl p-8 text-center text-xs text-slate-500 border border-slate-200">Không tìm thấy ngữ pháp nào phù hợp.</div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(item => {
+                const isM = masteredIds.has(item.id);
+                const catLabel = item.cat === "2.1" ? "2.1 Vĩ tố liên kết" : "2.2 Vĩ tố kết thúc câu";
+                return `
+                    <div class="bg-white rounded-2xl p-4 border ${isM ? 'border-emerald-400 bg-emerald-50/30' : 'border-slate-200'} shadow-xs space-y-2.5">
+                        <div class="flex items-center justify-between gap-2">
+                            <div class="flex items-center gap-1.5">
+                                <span class="px-2 py-0.5 rounded-lg bg-slate-100 text-slate-700 border border-slate-200 font-extrabold text-[11px]">#${item.stt}</span>
+                                <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full ${item.cat === '2.1' ? 'bg-indigo-50 text-indigo-700 border border-indigo-200' : 'bg-violet-50 text-violet-700 border border-violet-200'}">
+                                    ${catLabel}
+                                </span>
+                            </div>
+                            <button onclick="toggleMastered('${item.id}')" class="px-2.5 py-1 rounded-xl text-xs font-bold border transition flex items-center gap-1 ${isM ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-slate-100 text-slate-600 border-slate-200'}">
+                                <i class="fa-solid ${isM ? 'fa-circle-check' : 'fa-regular fa-circle'}"></i>
+                                <span>${isM ? 'Đã thuộc' : 'Chưa thuộc'}</span>
+                            </button>
+                        </div>
+
+                        <div class="flex items-center justify-between gap-2">
+                            <div>
+                                <h3 class="font-kr text-xl sm:text-2xl font-black text-slate-900">${item.kr}</h3>
+                                <p class="text-sm font-bold text-indigo-700 mt-0.5">${item.vi}</p>
+                            </div>
+                            <button onclick="speakKorean('${item.kr.replace(/'/g, "\\'")}')" class="w-10 h-10 rounded-2xl bg-indigo-50 active:bg-indigo-100 border border-indigo-200 text-indigo-600 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-volume-high text-sm"></i>
+                            </button>
+                        </div>
+
+                        <div onclick="speakKorean('${item.exKr.replace(/'/g, "\\'")}')" class="bg-slate-50 active:bg-slate-100 rounded-xl p-3 border border-slate-200 flex items-start justify-between gap-2 cursor-pointer transition">
+                            <div class="space-y-0.5">
+                                <p class="font-kr text-xs sm:text-sm font-bold text-slate-800">${item.exKr}</p>
+                                <p class="text-[11px] sm:text-xs text-slate-500 italic">${item.exVi}</p>
+                            </div>
+                            <i class="fa-solid fa-volume-high text-xs text-indigo-500 mt-1 shrink-0"></i>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        // ============================================================================
+        // TAB 2: 39 SYNONYM GROUPS RENDERING
+        // ============================================================================
+        function setSynFilter(f) {
+            synFilter = f;
+            document.querySelectorAll(".sfilter-btn").forEach(btn => {
+                if (btn.dataset.sfilter === f) {
+                    btn.className = "sfilter-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition bg-violet-600 text-white shadow-xs";
+                } else {
+                    btn.className = "sfilter-btn px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition bg-slate-100 text-slate-700 border border-slate-200";
+                }
+            });
+            renderSynonymList();
+        }
+
+        function clearSynSearch() {
+            document.getElementById("syn-search").value = "";
+            renderSynonymList();
+        }
+
+        function renderSynonymList() {
+            const q = document.getElementById("syn-search").value.trim().toLowerCase();
+            document.getElementById("clear-syn-search").classList.toggle("hidden", !q);
+
+            const filtered = synonymGroups.filter(group => {
+                if (synFilter === "mastered" && !masteredIds.has(group.id)) return false;
+                if (synFilter === "unmastered" && masteredIds.has(group.id)) return false;
+                if (q) {
+                    const matchTitle = group.title.toLowerCase().includes(q) || group.meaning.toLowerCase().includes(q);
+                    const matchForms = group.forms.some(f => f.toLowerCase().includes(q));
+                    const matchEx = group.examples.some(e => e.toLowerCase().includes(q)) || group.vi.toLowerCase().includes(q);
+                    return matchTitle || matchForms || matchEx;
+                }
+                return true;
+            });
+
+            const container = document.getElementById("synonym-list-container");
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="bg-white rounded-2xl p-8 text-center text-xs text-slate-500 border border-slate-200">Không tìm thấy nhóm đồng nghĩa nào phù hợp.</div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(group => {
+                const isM = masteredIds.has(group.id);
+                const pillsHtml = group.forms.map(f => `
+                    <button onclick="speakKorean('${f.replace(/'/g, "\\'")}')" class="px-2.5 py-1.5 rounded-xl bg-violet-50 hover:bg-violet-100 active:scale-95 border border-violet-200 font-kr text-xs sm:text-sm font-black text-violet-900 flex items-center gap-1.5 transition">
+                        <span>${f}</span>
+                        <i class="fa-solid fa-volume-high text-[10px] text-violet-600"></i>
+                    </button>
+                `).join("");
+
+                const examplesHtml = group.examples.map(ex => {
+                    const cleanKr = ex.replace(/<[^>]*>/g, "");
+                    return `
+                        <div onclick="speakKorean('${cleanKr.replace(/'/g, "\\'")}')" class="flex items-start justify-between gap-2 py-1.5 px-2.5 rounded-xl hover:bg-white active:bg-slate-100 cursor-pointer transition">
+                            <p class="font-kr text-xs sm:text-sm font-semibold text-slate-800 leading-relaxed">
+                                <span class="text-violet-600 font-bold mr-1">&rsaquo;</span>${ex}
+                            </p>
+                            <i class="fa-solid fa-volume-high text-xs text-indigo-500 mt-1 shrink-0"></i>
+                        </div>
+                    `;
+                }).join("");
+
+                return `
+                    <div class="bg-white rounded-2xl p-4 border ${isM ? 'border-emerald-400 bg-emerald-50/30' : 'border-slate-200'} shadow-xs space-y-3">
+                        <div class="flex items-start justify-between gap-2">
+                            <div>
+                                <span class="inline-block text-[10px] font-black uppercase tracking-wider text-violet-700 bg-violet-50 border border-violet-200 px-2.5 py-0.5 rounded-full mb-1">
+                                    Nhóm #${group.num}
+                                </span>
+                                <h3 class="text-sm sm:text-base font-extrabold text-slate-900">${group.title}</h3>
+                                <p class="text-sm font-black text-indigo-700 mt-0.5">Nghĩa: ${group.meaning}</p>
+                            </div>
+                            <button onclick="toggleMastered('${group.id}')" class="px-2.5 py-1.5 rounded-xl text-xs font-bold border transition flex items-center gap-1 shrink-0 ${isM ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-slate-100 text-slate-600 border-slate-200'}">
+                                <i class="fa-solid ${isM ? 'fa-circle-check' : 'fa-regular fa-circle'}"></i>
+                                <span>${isM ? 'Đã thuộc' : 'Chưa thuộc'}</span>
+                            </button>
+                        </div>
+
+                        <div class="flex flex-wrap gap-1.5">
+                            ${pillsHtml}
+                        </div>
+
+                        <div class="bg-slate-50 rounded-2xl p-2.5 border border-slate-200 space-y-1">
+                            ${examplesHtml}
+                            <p class="text-[11px] text-slate-600 italic px-2.5 pt-1.5 border-t border-slate-200 mt-1">
+                                <i class="fa-solid fa-language mr-1 text-indigo-600"></i>${group.vi}
+                            </p>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        // ============================================================================
+        // TAB 3: FLASHCARDS (WITH TOUCH SWIPE)
+        // ============================================================================
+        function setFlashcardDeckType(type) {
+            fcDeckType = type;
+            const gBtn = document.getElementById("fc-type-grammar");
+            const sBtn = document.getElementById("fc-type-synonyms");
+            if (type === "grammar") {
+                gBtn.className = "py-2 px-3 rounded-lg text-xs font-extrabold transition bg-indigo-600 text-white shadow-xs";
+                sBtn.className = "py-2 px-3 rounded-lg text-xs font-extrabold transition text-slate-600";
+            } else {
+                sBtn.className = "py-2 px-3 rounded-lg text-xs font-extrabold transition bg-violet-600 text-white shadow-xs";
+                gBtn.className = "py-2 px-3 rounded-lg text-xs font-extrabold transition text-slate-600";
+            }
+            initFlashcards();
+        }
+
+        function initFlashcards() {
+            const filter = document.getElementById("fc-filter-select").value;
+            const source = fcDeckType === "grammar" ? grammarList : synonymGroups;
+
+            fcDeck = source.filter(item => {
+                if (filter === "unmastered") return !masteredIds.has(item.id);
+                if (filter === "mastered") return masteredIds.has(item.id);
+                return true;
+            });
+
+            fcIndex = 0;
+            fcFlipped = false;
+            renderCurrentFlashcard();
+        }
+
+        function renderCurrentFlashcard() {
+            const emptyEl = document.getElementById("fc-empty-state");
+            const stageEl = document.getElementById("fc-stage");
+            const counterEl = document.getElementById("fc-counter");
+
+            if (fcDeck.length === 0) {
+                emptyEl.classList.remove("hidden");
+                stageEl.classList.add("hidden");
+                counterEl.textContent = "0/0";
+                return;
+            }
+
+            emptyEl.classList.add("hidden");
+            stageEl.classList.remove("hidden");
+
+            if (fcIndex >= fcDeck.length) fcIndex = 0;
+            if (fcIndex < 0) fcIndex = fcDeck.length - 1;
+
+            const card = fcDeck[fcIndex];
+            counterEl.textContent = `${fcIndex + 1}/${fcDeck.length}`;
+
+            fcFlipped = false;
+            document.getElementById("fc-card-inner").classList.remove("rotate-y-180");
+
+            const badgeEl = document.getElementById("fc-front-badge");
+            const subEl = document.getElementById("fc-front-sub");
+            const mainEl = document.getElementById("fc-front-main");
+            const backTitleEl = document.getElementById("fc-back-title");
+            const backMeaningEl = document.getElementById("fc-back-meaning");
+            const backExEl = document.getElementById("fc-back-examples");
+
+            if (fcDeckType === "grammar") {
+                badgeEl.textContent = `Phần ${card.cat} • #${card.stt}`;
+                subEl.textContent = "Ngữ pháp tiếng Hàn";
+                mainEl.textContent = card.kr;
+                backTitleEl.textContent = card.kr;
+                backMeaningEl.textContent = card.vi;
+                backExEl.innerHTML = `<p class="font-kr text-sm sm:text-base font-bold text-slate-900">${card.exKr}</p><p class="text-slate-500 italic text-xs">${card.exVi}</p>`;
+            } else {
+                badgeEl.textContent = `Nhóm đồng nghĩa #${card.num}`;
+                subEl.textContent = card.title;
+                mainEl.innerHTML = `<div class="flex flex-wrap justify-center gap-2">${card.forms.map(f => `<span class="px-3 py-1.5 rounded-2xl bg-violet-50 border border-violet-200 text-violet-900 text-lg sm:text-xl font-black">${f}</span>`).join("")}</div>`;
+                backTitleEl.textContent = card.title;
+                backMeaningEl.textContent = card.meaning;
+                backExEl.innerHTML = card.examples.slice(0, 3).map(e => `<p class="font-kr font-semibold text-slate-800 leading-snug">&bull; ${e}</p>`).join("") + `<p class="text-slate-500 italic text-xs pt-1 border-t border-slate-200">${card.vi}</p>`;
+            }
+
+            const isM = masteredIds.has(card.id);
+            document.getElementById("fc-mastered-pill").classList.toggle("hidden", !isM);
+            const masterBtn = document.getElementById("fc-master-btn");
+            if (isM) {
+                masterBtn.className = "py-3.5 rounded-2xl bg-slate-200 text-slate-700 font-extrabold text-xs flex flex-col items-center justify-center gap-1";
+                masterBtn.innerHTML = `<i class="fa-solid fa-rotate-left text-sm"></i><span>Bỏ thuộc</span>`;
+            } else {
+                masterBtn.className = "py-3.5 rounded-2xl bg-emerald-600 text-white font-extrabold text-xs flex flex-col items-center justify-center gap-1 shadow-xs";
+                masterBtn.innerHTML = `<i class="fa-solid fa-check text-sm"></i><span>Đã thuộc</span>`;
+            }
+        }
+
+        function flipFlashcard() {
+            if (fcDeck.length === 0) return;
+            fcFlipped = !fcFlipped;
+            document.getElementById("fc-card-inner").classList.toggle("rotate-y-180", fcFlipped);
+        }
+
+        function nextFlashcard() {
+            if (fcDeck.length === 0) return;
+            fcIndex = (fcIndex + 1) % fcDeck.length;
+            renderCurrentFlashcard();
+        }
+
+        function prevFlashcard() {
+            if (fcDeck.length === 0) return;
+            fcIndex = (fcIndex - 1 + fcDeck.length) % fcDeck.length;
+            renderCurrentFlashcard();
+        }
+
+        function shuffleFlashcards() {
+            for (let i = fcDeck.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [fcDeck[i], fcDeck[j]] = [fcDeck[j], fcDeck[i]];
+            }
+            fcIndex = 0;
+            renderCurrentFlashcard();
+        }
+
+        function toggleCurrentFlashcardMastery() {
+            if (fcDeck.length === 0) return;
+            toggleMastered(fcDeck[fcIndex].id);
+            renderCurrentFlashcard();
+        }
+
+        function speakCurrentFlashcard() {
+            if (fcDeck.length === 0) return;
+            const card = fcDeck[fcIndex];
+            speakKorean(fcDeckType === "grammar" ? card.kr : card.forms.join(", "));
+        }
+
+        function speakCurrentFlashcardExample() {
+            if (fcDeck.length === 0) return;
+            const card = fcDeck[fcIndex];
+            speakKorean(fcDeckType === "grammar" ? card.exKr : card.examples[0]);
+        }
+
+        function setupFlashcardSwipe() {
+            const area = document.getElementById("fc-touch-area");
+            let startX = 0, startY = 0;
+            area.addEventListener("touchstart", e => {
+                startX = e.changedTouches[0].screenX;
+                startY = e.changedTouches[0].screenY;
+            }, { passive: true });
+            area.addEventListener("touchend", e => {
+                const dx = e.changedTouches[0].screenX - startX;
+                const dy = e.changedTouches[0].screenY - startY;
+                if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy)) {
+                    if (dx < 0) nextFlashcard();
+                    else prevFlashcard();
+                }
+            }, { passive: true });
+        }
+
+        // ============================================================================
+        // TAB 4: QUIZ (50 GRAMMARS & TOPIK II SYNONYM REPLACEMENT)
+        // ============================================================================
+        function extractUnderlined(htmlStr) {
+            const m = htmlStr.match(/<u>(.*?)<\/u>/);
+            return m ? m[1] : htmlStr;
+        }
+
+        function setQuizMode(mode) {
+            quizMode = mode;
+            const sBtn = document.getElementById("qmode-synonyms");
+            const gBtn = document.getElementById("qmode-grammar");
+            if (mode === "synonyms") {
+                sBtn.className = "py-2 px-2 rounded-lg text-xs font-extrabold transition bg-violet-600 text-white shadow-xs";
+                gBtn.className = "py-2 px-2 rounded-lg text-xs font-extrabold transition text-slate-600";
+            } else {
+                gBtn.className = "py-2 px-2 rounded-lg text-xs font-extrabold transition bg-indigo-600 text-white shadow-xs";
+                sBtn.className = "py-2 px-2 rounded-lg text-xs font-extrabold transition text-slate-600";
+            }
+            nextQuizQuestion();
+        }
+
+        function nextQuizQuestion() {
+            quizAnswered = false;
+            document.getElementById("quiz-feedback").classList.add("hidden");
+
+            const badgeEl = document.getElementById("quiz-q-badge");
+            const instrEl = document.getElementById("quiz-q-instruction");
+            const promptEl = document.getElementById("quiz-q-prompt");
+            const subhintEl = document.getElementById("quiz-q-subhint");
+
+            let options = [];
+
+            if (quizMode === "synonyms") {
+                const group = synonymGroups[Math.floor(Math.random() * synonymGroups.length)];
+                const shuffledEx = [...group.examples].sort(() => Math.random() - 0.5);
+                const questionSentence = shuffledEx[0];
+                const correctUnderlined = extractUnderlined(shuffledEx[1] || shuffledEx[0]);
+
+                const otherGroups = synonymGroups.filter(g => g.id !== group.id).sort(() => Math.random() - 0.5).slice(0, 3);
+                const distractors = otherGroups.map(og => extractUnderlined(og.examples[0]));
+
+                badgeEl.textContent = `Câu 3-4 TOPIK II • Nhóm #${group.num}`;
+                instrEl.textContent = "Chọn biểu hiện ĐỒNG NGHĨA với phần gạch chân trong câu:";
+                promptEl.innerHTML = questionSentence;
+                subhintEl.textContent = `Gợi ý nghĩa nhóm: "${group.meaning}"`;
+
+                options = [
+                    { text: correctUnderlined, isCorrect: true, isKr: true },
+                    ...distractors.map(d => ({ text: d, isCorrect: false, isKr: true }))
+                ];
+
+                currentQuizQuestion = {
+                    speakText: questionSentence,
+                    title: `${group.title} (${group.meaning})`,
+                    detail: `Cấu trúc đồng nghĩa: <strong>${group.forms.join(" = ")}</strong><br><em>Dịch: ${group.vi}</em>`,
+                    options
+                };
+            } else {
+                const target = grammarList[Math.floor(Math.random() * grammarList.length)];
+                const others = grammarList.filter(g => g.id !== target.id).sort(() => Math.random() - 0.5).slice(0, 3);
+
+                badgeEl.textContent = `Ngữ pháp Phần ${target.cat} • #${target.stt}`;
+                instrEl.textContent = "Chọn nghĩa tiếng Việt đúng cho cấu trúc ngữ pháp sau:";
+                promptEl.textContent = target.kr;
+                subhintEl.textContent = `Ví dụ: ${target.exKr}`;
+
+                options = [
+                    { text: target.vi, isCorrect: true, isKr: false },
+                    ...others.map(o => ({ text: o.vi, isCorrect: false, isKr: false }))
+                ];
+
+                currentQuizQuestion = {
+                    speakText: target.exKr,
+                    title: `${target.kr} : ${target.vi}`,
+                    detail: `Ví dụ: <strong>${target.exKr}</strong><br><em>Dịch: ${target.exVi}</em>`,
+                    options
+                };
+            }
+
+            options.sort(() => Math.random() - 0.5);
+            const nums = ["①", "②", "③", "④"];
+            document.getElementById("quiz-options").innerHTML = options.map((opt, idx) => `
+                <button onclick="selectQuizOption(${idx})" id="quiz-opt-${idx}" class="w-full text-left p-3.5 rounded-2xl border-2 border-slate-200 bg-slate-50 active:bg-slate-100 transition flex items-center gap-3">
+                    <span class="text-base font-black text-indigo-600 shrink-0">${nums[idx]}</span>
+                    <span class="${opt.isKr ? 'font-kr text-base font-bold' : 'text-sm font-bold'} text-slate-900">${opt.text}</span>
+                </button>
+            `).join("");
+        }
+
+        function selectQuizOption(idx) {
+            if (quizAnswered) return;
+            quizAnswered = true;
+            quizTotal++;
+
+            const chosen = currentQuizQuestion.options[idx];
+            currentQuizQuestion.options.forEach((opt, i) => {
+                const btn = document.getElementById(`quiz-opt-${i}`);
+                if (opt.isCorrect) {
+                    btn.className = "w-full text-left p-3.5 rounded-2xl border-2 border-emerald-500 bg-emerald-50 text-emerald-950 flex items-center gap-3";
+                } else if (i === idx && !opt.isCorrect) {
+                    btn.className = "w-full text-left p-3.5 rounded-2xl border-2 border-rose-500 bg-rose-50 text-rose-950 flex items-center gap-3";
+                } else {
+                    btn.className = "w-full text-left p-3.5 rounded-2xl border-2 border-slate-200 bg-slate-50 opacity-50 flex items-center gap-3";
+                }
+            });
+
+            const fbBox = document.getElementById("quiz-feedback");
+            const fbTitle = document.getElementById("quiz-feedback-title");
+            const fbDetail = document.getElementById("quiz-feedback-detail");
+            fbBox.classList.remove("hidden");
+
+            if (chosen.isCorrect) {
+                quizScore++;
+                quizStreak++;
+                fbBox.className = "rounded-2xl p-4 border border-emerald-300 bg-emerald-50 space-y-2";
+                fbTitle.className = "font-extrabold text-sm text-emerald-700";
+                fbTitle.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i>Chính xác!`;
+            } else {
+                quizStreak = 0;
+                fbBox.className = "rounded-2xl p-4 border border-rose-300 bg-rose-50 space-y-2";
+                fbTitle.className = "font-extrabold text-sm text-rose-700";
+                fbTitle.innerHTML = `<i class="fa-solid fa-circle-xmark mr-1"></i>Chưa đúng!`;
+            }
+
+            fbDetail.innerHTML = `
+                <p class="font-bold text-indigo-800">${currentQuizQuestion.title}</p>
+                <p class="font-kr text-slate-800">${currentQuizQuestion.detail}</p>
+            `;
+
+            document.getElementById("quiz-score").textContent = quizScore;
+            document.getElementById("quiz-total").textContent = quizTotal;
+            document.getElementById("quiz-streak").textContent = quizStreak;
+        }
+
+        function speakQuizPrompt() {
+            if (currentQuizQuestion) speakKorean(currentQuizQuestion.speakText);
+        }
+
+        // ============================================================================
+        // RESET MODAL
+        // ============================================================================
+        function openResetModal() {
+            document.getElementById("reset-modal").classList.remove("hidden");
+        }
+        function closeResetModal() {
+            document.getElementById("reset-modal").classList.add("hidden");
+        }
+        function confirmResetProgress() {
+            masteredIds.clear();
+            saveProgress();
+            renderGrammarList();
+            renderSynonymList();
+            initFlashcards();
+            closeResetModal();
+        }
+
+        // ============================================================================
+        // INITIALIZE APP ON LOAD
+        // ============================================================================
+        window.addEventListener("DOMContentLoaded", () => {
+            loadProgress();
+            renderGrammarList();
+            renderSynonymList();
+            initFlashcards();
+            setupFlashcardSwipe();
+            nextQuizQuestion();
+        });
+    </script>
+</body>
+</html>
